@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app">
+        <h1>{{title}}</h1>
+        <button @click="one = !one">v-if</button>
+        <p v-if="one" class="if">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis, optio quia maiores autem id quisquam dolor vitae ipsum voluptatem eum.</p>
+        <br>
+        <br>
+        <button @click="two = !two">v-show</button>
+        <p v-show="two" class="show">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum aliquam saepe quis ea iure quia eveniet facere iste inventore. Quos!</p>
+    </div>
+    <script>
+        const app = {
+            data(){
+                return {
+                    title:'v-show lar bilan ishlash',
+                    one:false,
+                    two:false
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
+    </script>
+</body>
+</html>

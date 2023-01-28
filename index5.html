@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app">
+        <h1>{{title}}</h1>
+        <form action="" @submit.prevent="addUser()">
+            <input type="text" v-model="text">
+            <button>Qo'shish</button>
+            <p>Siz kiritgan malumot: {{text}}</p>
+            <p>Foydalanuvchilar soni: {{getUserlength}}</p>
+        </form>
+        <ul style="display: flex; gap: 30px;">
+            <li v-for="(user,index) in users" :key="user.id">
+                <p>user Id: {{user.id}}</p>
+                <p>user Name: {{user.name}}</p>
+                <p>user index: {{index}}</p>
+                <button @click="delUsers(user.id)">X</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let i = 1
+        const app = {
+            
+            data(){
+                return {
+                    title:'v-for tsikllar bilan ishlash',
+                    users: [
+                        { id: i++, name: 'HTML' },
+                        { id: i++, name: 'CSS' },
+                        { id: i++, name: 'JAVASCRIPT' },
+                    ],
+                    text:''
+                }
+            },
+            methods:{
+                addUser(){
+                    this.users.push({
+                        id:i++,
+                        name: this.text
+                    })
+                    this.text = null
+                },
+                delUsers(i) {
+                    let index = this.users.findIndex(el=>el.id == i)
+                    this.users.splice(index,1)
+                },
+            },
+            computed:{
+                getUserlength(){
+                    return this.users.length
+                }
+            },
+            watch:{
+                users:{
+                    handler(newValue){
+                        localStorage.setItem('list', JSON.stringify(this.users))
+                    },
+                    deep:true
+                }
+            },
+            created(){
+                let localUsers = localStorage.getItem('list')
+                if (localUsers) {
+                    this.users = JSON.parse(localUsers)
+                    i = this.users.length + 1
+                }
+            },
+            // mounted(){
+            //     console.log(getUserlength());
+            // },
+        }
+
+        Vue.createApp(app).mount('#app')
+    </script>
+</body>
+</html>

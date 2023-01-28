@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app">
+        <h1>{{title}}</h1>
+
+        <button @click="show = !show">
+            <span v-if="show">ko'rsatish</span>
+            <span v-else> yashirish</span>
+        </button>
+        <p v-if="!show">matn endi ko'rinvotti Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta, earum.</p>
+        <p v-else>Matn yo'q</p>
+        <input type="text" v-model="text">
+        <div class="wrapper" v-if="!isNaN(text) && text.length != 0">
+            <p v-if="text >= 3 && text < 7">Siz xali bog'chaga borasiz</p>
+            <p v-else-if="text >= 7 && text < 18">Siz Maktab o'quvchisiz!</p>
+            <p v-else-if="text >= 18 && < 28">Siz Institutda o'qiysiz</p>
+            <p v-else-if="text >= 28 && < 50">Ishlashiz kerak</p>
+            <p v-else-if="text > 3">Siz nafaqadasiz</p>
+        </div>
+    </div>
+    <script>
+        const app = {
+            data(){
+                return {
+                    title:'v-if lar bilan ishlash',
+                    show:false,
+                    text:'',
+                }
+            }
+        }
+        Vue.createApp(app).mount('#app')
+    </script>
+</body>
+</html>
